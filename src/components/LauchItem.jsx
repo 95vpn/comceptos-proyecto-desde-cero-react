@@ -1,6 +1,7 @@
 import { FaCalendarAlt } from "react-icons/fa";
-import { Box, Text, Spacer, Tag, Flex } from "@chakra-ui/react"
-
+import { Box, Text, Spacer, Tag, Flex, Button, Icon } from "@chakra-ui/react"
+import dayjs from "dayjs"
+import "dayjs/locale/es"
 import React from 'react'
 
 export function LauchItem( launch ) {
@@ -11,16 +12,19 @@ export function LauchItem( launch ) {
                     Mission <strong>launch.mission_name</strong>({launch.launch_year})
                 </Text>
                 <Spacer />
-                <Tag p="4" colorScheme={launch.launch_success ? "green" : "red"}>{launch.launch_success ? "Succes" : "Failure"}
+                <Tag p="2" colorScheme={launch.launch_success ? "green" : "red"}>{launch.launch_success ? "Succes" : "Failure"}
 
                 </Tag>
             </Box>
             <Flex align="center">
-                <FaCalendarAlt />
-                <Text fontSize="sm" ml="2">
-                    {launch.launch_date_local.split("T")[0]}
+                <Icon as={FaCalendarAlt} color="gray.500" />
+                <Text fontSize="sm" ml="2" color="gray.500">
+                    {dayjs(launch.launch_date_local.split("T")[0])
+                        .locale("es")
+                        .format("D MMMM, YYYY")}
                 </Text>
             </Flex>
+            <Button mt="2" colorScheme="blue">More Details</Button>
         </Box>
     )
 }
